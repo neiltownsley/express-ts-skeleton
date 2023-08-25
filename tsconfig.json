@@ -7,5 +7,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
+    "srcDir": "./src",
+    //"includes": ["src/**/*.ts"]
   }
 }
