@@ -5,9 +5,9 @@
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "srcDir": "./src",
     //"includes": ["src/**/*.ts"]
   }
 }
