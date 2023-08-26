@@ -1,10 +1,10 @@
 import {Request, Response} from "express";
 import app from "../app";
+import {averageNumberCalculator} from "../service/averageNumberCalculator";
 
-const averageRandomNumberController = (req: Request, res: Response) => {
-  const resp = {hello: 'world'};
+export const averageRandomNumberController = (req: Request, res: Response) => {
+  const randomNumberList: number[] = app.get('randomNumberList')
+  const averageNumber = averageNumberCalculator([1, 2, 3]);
 
-  res.send(app.get('bong'));
+  res.send({averageNumber}).status(200);
 };
-
-export default averageRandomNumberController;

@@ -1,63 +1,24 @@
+import {RandomNumberResponse} from "./RandomNumberResponse";
+import {AxiosResponse} from "axios";
+import {randomNumberRequestHandler} from "./randomNumberRequestHandler";
 import app from "../app";
-
-type RandomNumber = {
-    randomNumber: number;
-}
-
-type RandomNumberSuccessfulResponse = {
-    status: string;
-    min: number;
-    max: number;
-    random: number;
-}
-
-type RandomNumberErrorResponse = {
-    status: string;
-    code: string;
-    reason: string;
-}
-
-type TimeoutIncrement = {
-    timeoutComplete: boolean;
-}
-
-type RandomNumberResponse = RandomNumberSuccessfulResponse | RandomNumberErrorResponse;
-
-async function randomNumberRequestHandler(): Promise<RandomNumberResponse[]> {
-    const response: Response = await fetch(`https://csrng.net/csrng/csrng.php?min=0&max=100`);
-    return await response.json();
-}
+import {randomNumberListKey} from "../configurationConstants";
 
 let randomNumberList: number[] = [];
-async function recursiveRandomNumberHandler(): Promise<any> {
-    const randomNumber: Promise<RandomNumber | undefined> = randomNumberRequestHandler()
-        .then(
-            (res: RandomNumberResponse[]) => {
-                if (res.length && 'random' in res[0]) {
-                    const random: number = res[0].random;
-                    return new Promise((resolve): void => {
-                        resolve({randomNumber: random})
-                    });
-                };
-            });
+export async function recursiveRandomNumberHandler(): Promise<void> {
+    const axiosResponse: AxiosResponse<RandomNumberResponse[]> = await randomNumberRequestHandler();
+    const randomNumberResponse: RandomNumberResponse[] = axiosResponse.data;
 
-    const timeoutIncrement: Promise<TimeoutIncrement> = new Promise((resolve): void => {
-        setTimeout((): void => {
-            resolve({timeoutComplete: true})
-        }, 500);
-    });
+    if (randomNumberResponse && randomNumberResponse.length && 'random' in randomNumberResponse[0]) {
+        const random: number = randomNumberResponse[0].random;
+        randomNumberList.push(random);
+        app.set(randomNumberListKey, randomNumberList)
+    }
 
-    return Promise.all(
-        [randomNumber, timeoutIncrement]
-    ).then(
-        (res: [RandomNumber | undefined, TimeoutIncrement]) => {
-            if (res.length && res[0] && res[0].randomNumber) {
-                randomNumberList.push(res[0].randomNumber);
-                app.set('bong', randomNumberList)
-            }
-            recursiveRandomNumberHandler();
-        });
+    setTimeout((): void => {
+        recursiveRandomNumberHandler();
+    }, 1000);
+
 }
 
 
-export default recursiveRandomNumberHandler;
