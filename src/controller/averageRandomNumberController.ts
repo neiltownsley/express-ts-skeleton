@@ -9,7 +9,7 @@ export const averageRandomNumberController = async (req: Request, res: Response,
     if(!randomNumbers.length || !averageNumber) {
       res.send({randomNumberAverageError}).status(500);
     }
-    res.end({randomNumbers, averageNumber, averageNumberFixed}).status(200);
+    res.send({randomNumbers, averageNumber, averageNumberFixed}).status(200);
 
   });
 

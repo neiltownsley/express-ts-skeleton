@@ -20,8 +20,9 @@ describe('recursiveRandomNumberHandler',  (): void => {
         const randomNumberPath = "/csrng";
         const url: RegExp = new RegExp(`${randomNumberPath}/*`);
         mock.onGet(url).reply(200, randomNumberResponse);
-        const randomNumberList: number[] = await recursiveRandomNumberHandler();
 
+        const randomNumberList: number[] = await recursiveRandomNumberHandler();
+        //jest.runAllTimers()
         expect(randomNumberList).toEqual([randomNumberResponse[0].random]);
     });
 
@@ -29,8 +30,9 @@ describe('recursiveRandomNumberHandler',  (): void => {
         const randomNumberPath = "/csrng";
         const url: RegExp = new RegExp(`${randomNumberPath}/*`);
         mock.onGet(url).reply(200, randomNumberReachedMaximumResponse);
-        const randomNumberList: number[] = await recursiveRandomNumberHandler();
 
+        const randomNumberList: number[] = await recursiveRandomNumberHandler();
+       // jest.runAllTimers()
         expect(randomNumberList).toEqual([23]);
     });
 });

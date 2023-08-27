@@ -12,17 +12,13 @@ export async function recursiveRandomNumberHandler(): Promise<number[]> {
     //console.log('----->process.env', process.env.PORT)
     //pino().info({randomNumberResponse})
 
-    console.log('call')
-
     if (randomNumberResponse && randomNumberResponse.length && 'random' in randomNumberResponse[0]) {
         const random: number = randomNumberResponse[0].random;
         randomNumberList.push(random);
     }
 
     setTimeout((): void => {
-        if (global.randomNumberRetrieval === true) {
-            recursiveRandomNumberHandler();
-        }
+        recursiveRandomNumberHandler();
     }, 1000);
 
     return new Promise((resolve, reject) => {

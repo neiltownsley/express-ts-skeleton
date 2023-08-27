@@ -1,9 +1,9 @@
 import request from "supertest";
-import server from "../../src/server";
 import DoneCallback = jest.DoneCallback;
 import axios, {AxiosError, AxiosResponse} from "axios";
 import MockAdapter from "axios-mock-adapter";
 import {randomNumberValidResponse} from "../mocks/randomNumberValidResponse";
+import app from "../../src/app";
 const mock: MockAdapter = new MockAdapter(axios);
 
 
@@ -13,12 +13,10 @@ describe("Test the root path", () => {
         const url: RegExp = new RegExp(`${randomNumberPath}/!*`);
         mock.onGet(url).reply(200, randomNumberValidResponse());
 
-        request(server)
-            .get('/stop-average-number')
-            .set('Accept', 'application/json')
-            .expect(200);
-        done();
-        global.randomNumberRetrieval = false;
-
+        request(app)
+            .get('/stop-average-number').then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
     });
 });
