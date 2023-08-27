@@ -33,14 +33,15 @@ describe('randomNumberRequestHandler', () => {
         const randomNumberResponse: Promise<AxiosResponse> = randomNumberRequestHandler()
         await expect(randomNumberResponse).rejects.toThrow(new AxiosError('Request failed with status code 404').message);
     });
+    */
+
 
     it('When random number endpoint is called with valid url, and max query response is hit should give error response with 200 response status', async (): Promise<void> => {
-        const url: RegExp = new RegExp(`${externalRandomNumberPath}/!*`);
-        mock.onGet(url).reply(200, randomNumberReachedMaximumQueryResponse());
+        mockedAxios.get.mockResolvedValue({data: randomNumberReachedMaximumQueryResponse(), status: 200 });
 
         const randomNumberResponse: AxiosResponse<RandomNumberResponse[]> = await randomNumberRequestHandler();
         expect(randomNumberResponse.data).toEqual(randomNumberReachedMaximumQueryResponse());
         expect(randomNumberResponse.status).toEqual(200);
-    });*/
+    });
 
 })
