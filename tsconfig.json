@@ -9,7 +9,6 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist"
-    //"includes": ["src/**/*.ts"]
   },
   "include": ["."]
 }
