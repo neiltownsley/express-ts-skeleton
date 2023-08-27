@@ -9,8 +9,7 @@ let randomNumberList: number[] = [];
 export async function recursiveRandomNumberHandler(): Promise<number[]> {
     const axiosResponse: AxiosResponse<RandomNumberResponse[]> = await randomNumberRequestHandler();
     const randomNumberResponse: RandomNumberResponse[] = axiosResponse.data;
-    //console.log('----->process.env', process.env.PORT)
-    //pino().info({randomNumberResponse})
+    pino().info({randomNumberResponse})
 
     if (randomNumberResponse && randomNumberResponse.length && 'random' in randomNumberResponse[0]) {
         const random: number = randomNumberResponse[0].random;
