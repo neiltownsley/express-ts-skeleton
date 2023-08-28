@@ -1,14 +1,15 @@
 import { RandomNumberResponse } from "./RandomNumberResponse";
 import { AxiosResponse } from "axios";
-import { randomNumberRequestHandler } from "./randomNumberRequestHandler";
+import { externalRequestHandler } from "./externalRequestHandler";
 import pino from "pino";
 import dotenv from "dotenv";
+import { randomNumberUrl } from "../configurationConstants";
 dotenv.config();
 
 const randomNumberList: number[] = [];
 export async function recursiveRandomNumberHandler(): Promise<number[]> {
   const axiosResponse: AxiosResponse<RandomNumberResponse[]> =
-    await randomNumberRequestHandler();
+    await externalRequestHandler(randomNumberUrl);
   const randomNumberResponse: RandomNumberResponse[] = axiosResponse.data;
   pino().info({ randomNumberResponse });
 
@@ -25,9 +26,7 @@ export async function recursiveRandomNumberHandler(): Promise<number[]> {
     recursiveRandomNumberHandler();
   }, 1000);
 
-  return Promise.all(
-    randomNumberList.map((randomNumber: number) => {
-      return randomNumber;
-    }),
-  );
+  return new Promise((resolve): void => {
+    resolve(randomNumberList);
+  });
 }

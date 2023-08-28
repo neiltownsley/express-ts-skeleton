@@ -19,7 +19,7 @@ const randomNumberResponseTwo: RandomNumberSuccessfulResponse[] =
   randomNumberValidResponseTwo();
 
 describe("recursiveRandomNumberHandler", (): void => {
-  afterEach((): void => {
+  afterAll((): void => {
     jest.resetAllMocks();
     jest.clearAllTimers();
   });
@@ -36,7 +36,6 @@ describe("recursiveRandomNumberHandler", (): void => {
     });
 
     const randomNumberList: number[] = await recursiveRandomNumberHandler();
-    console.log("randomNumberList", randomNumberList);
     jest.advanceTimersByTime(2000);
 
     expect(axiosGetMock).toHaveBeenCalledTimes(2);

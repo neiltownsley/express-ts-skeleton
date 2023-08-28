@@ -1,8 +1,9 @@
 import { RandomNumberResponse } from "../../../src/service/RandomNumberResponse";
-import { randomNumberRequestHandler } from "../../../src/service/randomNumberRequestHandler";
+import { externalRequestHandler } from "../../../src/service/externalRequestHandler";
 import { randomNumberValidMockResponse } from "../../mocks/randomNumberValidMockResponse";
 import { randomNumberReachedMaximumQueryMockResponse } from "../../mocks/randomNumberReachedMaximumQueryMockResponse";
 import axios, { AxiosError, AxiosResponse, AxiosStatic } from "axios";
+import { randomNumberUrl } from "../../../src/configurationConstants";
 
 jest.mock("axios");
 const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<
@@ -20,7 +21,7 @@ describe("randomNumberRequestHandler", () => {
     });
 
     const randomNumberResponse: AxiosResponse<RandomNumberResponse[]> =
-      await randomNumberRequestHandler();
+      await externalRequestHandler(randomNumberUrl);
     expect(randomNumberResponse.data).toEqual(randomNumberValidMockResponse());
     expect(randomNumberResponse.status).toEqual(200);
   });
@@ -33,7 +34,7 @@ describe("randomNumberRequestHandler", () => {
     mockedAxios.get.mockResolvedValue(axiosError);
 
     const randomNumberResponse: AxiosResponse<RandomNumberResponse[]> =
-      await randomNumberRequestHandler();
+      await externalRequestHandler(randomNumberUrl);
     expect(randomNumberResponse).toEqual(axiosError);
     expect(randomNumberResponse.status).toEqual(404);
   });
@@ -45,7 +46,7 @@ describe("randomNumberRequestHandler", () => {
     });
 
     const randomNumberResponse: AxiosResponse<RandomNumberResponse[]> =
-      await randomNumberRequestHandler();
+      await externalRequestHandler(randomNumberUrl);
     expect(randomNumberResponse.data).toEqual(
       randomNumberReachedMaximumQueryMockResponse(),
     );

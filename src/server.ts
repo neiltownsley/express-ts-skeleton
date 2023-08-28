@@ -1,17 +1,23 @@
 import dotenv from "dotenv";
 import app from "./app";
 import pino from "pino";
+import { randomAverageNumberPath } from "./configurationConstants";
+
+type ServerError = {
+  code: string;
+};
 
 dotenv.config();
 const port = process.env.PORT;
 const host = process.env.HOST;
-//lsof -i -P | grep LISTEN | grep :$PORT
 
 app
   .listen(Number(port), String(host), (): void => {
-    pino().info(`Server is running at http://localhost:${port}`);
+    pino().info(
+      `Server is running at http://${host}:${port}${randomAverageNumberPath}`,
+    );
   })
-  .on("error", (err: any): void => {
+  .on("error", (err: ServerError): void => {
     console.log(err.code);
     pino().error(err);
     if (err.code === "EADDRINUSE") {
