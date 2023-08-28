@@ -25,7 +25,9 @@ export async function recursiveRandomNumberHandler(): Promise<number[]> {
     recursiveRandomNumberHandler();
   }, 1000);
 
-  return new Promise((resolve) => {
-    resolve(randomNumberList);
-  });
+  return Promise.all(
+    randomNumberList.map((randomNumber: number) => {
+      return randomNumber;
+    }),
+  );
 }

@@ -2,11 +2,12 @@ import { RandomNumberResponse } from "../../../src/service/RandomNumberResponse"
 import { randomNumberRequestHandler } from "../../../src/service/randomNumberRequestHandler";
 import { randomNumberValidMockResponse } from "../../mocks/randomNumberValidMockResponse";
 import { randomNumberReachedMaximumQueryMockResponse } from "../../mocks/randomNumberReachedMaximumQueryMockResponse";
-import axios, { AxiosResponse, AxiosStatic } from "axios";
+import axios, { AxiosError, AxiosResponse, AxiosStatic } from "axios";
 
 jest.mock("axios");
-const mockedAxios: jest.Mocked<AxiosStatic> =
-  axios as jest.Mocked<typeof axios>;
+const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<
+  typeof axios
+>;
 describe("randomNumberRequestHandler", () => {
   afterEach((): void => {
     jest.clearAllMocks();
@@ -24,14 +25,18 @@ describe("randomNumberRequestHandler", () => {
     expect(randomNumberResponse.status).toEqual(200);
   });
 
-  /*it('When random number endpoint is called with invalid url, should give 404 response status', async (): Promise<void> => {
-       mockedAxios.get.mockRejectedValue({ status: 404 });
+  it("When random number endpoint is called with invalid url, should give 404 response status", async (): Promise<void> => {
+    const axiosError: AxiosError = new AxiosError(
+      "Request failed with status code 404",
+    );
+    axiosError.status = 404;
+    mockedAxios.get.mockResolvedValue(axiosError);
 
-        const randomNumberResponse: Promise<AxiosResponse> = randomNumberRequestHandler().then(() => {
-            await expect(randomNumberResponse).rejects.toThrow(new AxiosError('Request failed with status code 404').message);
-        });
-
-    });*/
+    const randomNumberResponse: AxiosResponse<RandomNumberResponse[]> =
+      await randomNumberRequestHandler();
+    expect(randomNumberResponse).toEqual(axiosError);
+    expect(randomNumberResponse.status).toEqual(404);
+  });
 
   it("When random number endpoint is called with valid url, and max query response is hit should give error response with 200 response status", async (): Promise<void> => {
     mockedAxios.get.mockResolvedValue({
