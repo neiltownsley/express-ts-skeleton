@@ -1,5 +1,5 @@
-import { averageNumberCalculator } from "./averageNumberCalculator";
-import { AverageRandomNumberResponse } from "./AverageRandomNumberResponse";
+import { averageNumberCalculator } from './averageNumberCalculator';
+import { AverageRandomNumberResponse } from './AverageRandomNumberResponse';
 
 export const averageRandomNumberResponseMapper = async (
   randomNumberList: Promise<number[]>,

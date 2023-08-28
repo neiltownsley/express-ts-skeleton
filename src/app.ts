@@ -1,7 +1,7 @@
-import express, { Express, Request, Response } from "express";
-import { averageRandomNumberController } from "./controller/averageRandomNumberController";
-import { recursiveRandomNumberHandler } from "./service/recursiveRandomNumberHandler";
-import { randomAverageNumberPath } from "./configurationConstants";
+import express, { Express, Request, Response } from 'express';
+import { averageRandomNumberController } from './controller/averageRandomNumberController';
+import { recursiveRandomNumberHandler } from './service/recursiveRandomNumberHandler';
+import { randomAverageNumberPath } from './configurationConstants';
 const app: Express = express();
 
 const randomNumberList: Promise<number[]> = recursiveRandomNumberHandler();

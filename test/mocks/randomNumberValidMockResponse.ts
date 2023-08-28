@@ -1,11 +1,11 @@
-import { RandomNumberSuccessfulResponse } from "../../src/service/RandomNumberResponse";
+import { RandomNumberSuccessfulResponse } from '../../src/service/RandomNumberResponse';
 
 export const randomNumberValidMockResponse =
   (): RandomNumberSuccessfulResponse[] => {
-    return [{ max: 100, min: 0, random: 23, status: "success" }];
+    return [{ max: 100, min: 0, random: 23, status: 'success' }];
   };
 
 export const randomNumberValidResponseTwo =
   (): RandomNumberSuccessfulResponse[] => {
-    return [{ max: 100, min: 0, random: 30, status: "success" }];
+    return [{ max: 100, min: 0, random: 30, status: 'success' }];
   };

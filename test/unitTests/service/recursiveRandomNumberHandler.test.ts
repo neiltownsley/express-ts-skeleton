@@ -1,14 +1,14 @@
-import { recursiveRandomNumberHandler } from "../../../src/service/recursiveRandomNumberHandler";
+import { recursiveRandomNumberHandler } from '../../../src/service/recursiveRandomNumberHandler';
 import {
   randomNumberValidMockResponse,
   randomNumberValidResponseTwo,
-} from "../../mocks/randomNumberValidMockResponse";
-import axios, { AxiosStatic } from "axios";
-import { RandomNumberSuccessfulResponse } from "../../../src/service/RandomNumberResponse";
+} from '../../mocks/randomNumberValidMockResponse';
+import axios, { AxiosStatic } from 'axios';
+import { RandomNumberSuccessfulResponse } from '../../../src/service/RandomNumberResponse';
 
-import { randomNumberUrl } from "../../../src/configurationConstants";
+import { randomNumberUrl } from '../../../src/configurationConstants';
 
-jest.mock("axios");
+jest.mock('axios');
 const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<
   typeof axios
 >;
@@ -18,14 +18,14 @@ const randomNumberResponse: RandomNumberSuccessfulResponse[] =
 const randomNumberResponseTwo: RandomNumberSuccessfulResponse[] =
   randomNumberValidResponseTwo();
 
-describe("recursiveRandomNumberHandler", (): void => {
+describe('recursiveRandomNumberHandler', (): void => {
   afterAll((): void => {
     jest.resetAllMocks();
     jest.clearAllTimers();
   });
 
-  it("When recursiveRandomNumberHandler is called, random number service is called recursively, should return a random number response", async (): Promise<void> => {
-    const axiosGetMock: jest.SpyInstance = jest.spyOn(axios, "get");
+  it('When recursiveRandomNumberHandler is called, random number service is called recursively, should return a random number response', async (): Promise<void> => {
+    const axiosGetMock: jest.SpyInstance = jest.spyOn(axios, 'get');
     mockedAxios.get.mockResolvedValueOnce({
       data: randomNumberResponse,
       status: 200,

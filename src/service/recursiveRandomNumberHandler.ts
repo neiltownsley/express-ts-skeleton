@@ -1,9 +1,9 @@
-import { RandomNumberResponse } from "./RandomNumberResponse";
-import { AxiosResponse } from "axios";
-import { externalRequestHandler } from "./externalRequestHandler";
-import pino from "pino";
-import dotenv from "dotenv";
-import { randomNumberUrl } from "../configurationConstants";
+import { RandomNumberResponse } from './RandomNumberResponse';
+import { AxiosResponse } from 'axios';
+import { externalRequestHandler } from './externalRequestHandler';
+import pino from 'pino';
+import dotenv from 'dotenv';
+import { randomNumberUrl } from '../configurationConstants';
 dotenv.config();
 
 const randomNumberList: number[] = [];
@@ -16,7 +16,7 @@ export async function recursiveRandomNumberHandler(): Promise<number[]> {
   if (
     randomNumberResponse &&
     randomNumberResponse.length &&
-    "random" in randomNumberResponse[0]
+    'random' in randomNumberResponse[0]
   ) {
     const random: number = Number(randomNumberResponse[0].random);
     randomNumberList.push(random);

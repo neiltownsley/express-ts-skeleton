@@ -1,5 +1,5 @@
-import { RandomNumberResponse } from "./RandomNumberResponse";
-import axios, { AxiosPromise } from "axios";
+import { RandomNumberResponse } from './RandomNumberResponse';
+import axios, { AxiosPromise } from 'axios';
 export async function externalRequestHandler(
   url: string,
 ): AxiosPromise<RandomNumberResponse[]> {

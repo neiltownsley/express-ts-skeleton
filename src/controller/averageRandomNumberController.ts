@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { averageRandomNumberResponseMapper } from "../service/averageRandomNumberResponseMapper";
+import { Request, Response } from 'express';
+import { averageRandomNumberResponseMapper } from '../service/averageRandomNumberResponseMapper';
 export const averageRandomNumberController = async (
   req: Request,
   res: Response,
