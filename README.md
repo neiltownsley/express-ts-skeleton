@@ -44,8 +44,8 @@
 - typescript
 - express
 - jest
+- supertest
 - axios
 - pino
-
-
+- esbuild
 
