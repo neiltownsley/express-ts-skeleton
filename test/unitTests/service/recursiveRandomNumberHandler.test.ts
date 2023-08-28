@@ -1,27 +1,26 @@
-import { recursiveRandomNumberHandler } from "../../src/service/recursiveRandomNumberHandler";
+import { recursiveRandomNumberHandler } from "../../../src/service/recursiveRandomNumberHandler";
 import {
-  randomNumberValidResponse,
+  randomNumberValidMockResponse,
   randomNumberValidResponseTwo,
-} from "../mocks/randomNumberValidResponse";
-import axios from "axios";
+} from "../../mocks/randomNumberValidMockResponse";
+import axios, { AxiosStatic } from "axios";
 import {
   RandomNumberErrorResponse,
   RandomNumberSuccessfulResponse,
-} from "../../src/service/RandomNumberResponse";
-import { randomNumberReachedMaximumQueryResponse } from "../mocks/randomNumberReachedMaximumQueryResponse";
-import { externalRandomNumberPath } from "../../src/configurationConstants";
-import { AxiosStatic } from "axios/index";
+} from "../../../src/service/RandomNumberResponse";
+import { randomNumberReachedMaximumQueryMockResponse } from "../../mocks/randomNumberReachedMaximumQueryMockResponse";
 
 jest.mock("axios");
-const mockedAxios: jest.Mocked<AxiosStatic | AxiosStatic> =
-  axios as jest.Mocked<typeof axios>;
+const mockedAxios: jest.Mocked<AxiosStatic> = axios as jest.Mocked<
+  typeof axios
+>;
 
 const randomNumberResponse: RandomNumberSuccessfulResponse[] =
-  randomNumberValidResponse();
+  randomNumberValidMockResponse();
 const randomNumberResponseTwo: RandomNumberSuccessfulResponse[] =
   randomNumberValidResponseTwo();
 const randomNumberReachedMaximumResponse: RandomNumberErrorResponse[] =
-  randomNumberReachedMaximumQueryResponse();
+  randomNumberReachedMaximumQueryMockResponse();
 
 describe("recursiveRandomNumberHandler", (): void => {
   afterEach((): void => {

@@ -1,6 +1,6 @@
 import { RandomNumberErrorResponse } from "../../src/service/RandomNumberResponse";
 
-export const randomNumberReachedMaximumQueryResponse =
+export const randomNumberReachedMaximumQueryMockResponse =
   (): RandomNumberErrorResponse[] => {
     return [
       {
