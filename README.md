@@ -6,7 +6,7 @@
 2. `npm run build`
 3. `npm run start`
 4. When you are ready you can go hit the service endpoint [http://localhost:8005(http://localhost:8005) 
-5. You should see the average random number response ``{ hello: 'world' }``
+5. You should see the response ``{ hello: 'world' }``
 
 ## How to run tests with code coverage
 
